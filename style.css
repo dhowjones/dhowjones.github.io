@@ -1,13 +1,11 @@
 /* =========================================================================
-   Portfolio Stylesheet: Y2K Pop-Minimalist (iMac G3 Era)
-   Aesthetic: Glossy, Translucent, Cobalt & Lime Accents
+   Portfolio Stylesheet: Y2K Pop-Minimalist (iMac G3 Era) - Updated 4-Button
+   Aesthetic: Glossy, Translucent, Cobalt, Lime & Orange Accents
    ========================================================================= */
 
-/* 1. Global Setup
-   ---------------------------------------------------------------------- */
+/* 1. Global Setup */
 body {
-    background-color: #f0f4f8; /* Soft off-white */
-    /* Subtle radial gradient to mimic a backlit CRT or early LCD screen */
+    background-color: #f0f4f8;
     background-image: radial-gradient(circle at center, #ffffff 0%, #dbeafe 100%);
     color: #1a1a1a;
     font-family: "Lucida Grande", "Segoe UI", Helvetica, Arial, sans-serif;
@@ -21,20 +19,20 @@ body {
 
 /* The 'Window' - Translucent Cobalt Acrylic */
 main.hero {
-    background: rgba(255, 255, 255, 0.7); /* Frosted glass effect */
-    backdrop-filter: blur(10px); /* Modern way to get that 'Aero' blur */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     max-width: 800px;
     width: 90%;
     padding: 40px;
-    border-radius: 30px; /* Extra rounded for that bubble look */
+    border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.8);
     box-shadow: 
-        0 20px 50px rgba(0, 0, 100, 0.1), /* Soft drop shadow */
-        inset 0 0 20px rgba(255, 255, 255, 0.5); /* Inner glow */
+        0 20px 50px rgba(0, 0, 100, 0.1),
+        inset 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-/* 2. Header & Typography
-   ---------------------------------------------------------------------- */
+/* 2. Header & Typography */
 header {
     text-align: center;
     margin-bottom: 30px;
@@ -46,7 +44,6 @@ header h1 {
     color: #0047AB; /* Cobalt Blue */
     margin: 0;
     letter-spacing: -1px;
-    /* Soft text shadow for a 'printed on glass' look */
     text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -59,8 +56,7 @@ header p.subtitle {
     margin-top: 5px;
 }
 
-/* 3. Bio Content
-   ---------------------------------------------------------------------- */
+/* 3. Bio Content */
 section.bio {
     line-height: 1.6;
     font-size: 1.1rem;
@@ -70,21 +66,15 @@ section.bio {
 section.bio a {
     color: #0047AB;
     text-decoration: none;
+    font-weight: bold;
     border-bottom: 2px solid rgba(0, 71, 171, 0.2);
-    transition: all 0.2s ease;
 }
 
-section.bio a:hover {
-    background: rgba(0, 71, 171, 0.1);
-    border-bottom-color: #0047AB;
-}
-
-/* 4. Glossy 'Pill' Navigation
-   ---------------------------------------------------------------------- */
+/* 4. Glossy 'Pill' Navigation - Updated for 4 buttons */
 nav.nav-buttons {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
     margin-top: 40px;
     flex-wrap: wrap;
 }
@@ -92,20 +82,19 @@ nav.nav-buttons {
 a.btn {
     position: relative;
     display: inline-block;
-    padding: 12px 25px;
-    background: linear-gradient(180deg, #0052cc 0%, #003399 100%); /* Cobalt Gradient */
+    padding: 12px 22px;
     color: white;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 50px; /* Perfect pill shape */
-    font-size: 0.9rem;
-    overflow: hidden; /* Clips the gloss effect */
-    box-shadow: 0 4px 15px rgba(0, 51, 153, 0.3);
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: transform 0.1s active;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-/* The 'Gloss' Shine - mimicking early 2000s hardware buttons */
+/* Gloss Overlay */
 a.btn::before {
     content: "";
     position: absolute;
@@ -117,27 +106,25 @@ a.btn::before {
     pointer-events: none;
 }
 
-/* Different colors for specific icons/vibes as requested */
-a.btn:nth-child(2) { background: linear-gradient(180deg, #32CD32 0%, #228B22 100%); } /* Lime */
-a.btn:nth-child(3) { background: linear-gradient(180deg, #FF8C00 0%, #E67E00 100%); } /* Orange */
+/* Button Color Logic */
+a.btn:nth-child(1) { background: linear-gradient(180deg, #0052cc 0%, #003399 100%); } /* About - Cobalt */
+a.btn:nth-child(2) { background: linear-gradient(180deg, #32CD32 0%, #228B22 100%); } /* Writing - Green */
+a.btn:nth-child(3) { background: linear-gradient(180deg, #FF8C00 0%, #E67E00 100%); } /* Projects - Orange */
+a.btn:nth-child(4) { background: linear-gradient(180deg, #0052cc 0%, #003399 100%); } /* CV - Cobalt */
 
 a.btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 51, 153, 0.4);
-    filter: brightness(1.1);
+    filter: brightness(1.15);
 }
 
 a.btn:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 10px rgba(0, 51, 153, 0.2);
+    filter: brightness(0.9);
 }
 
-/* 5. Mobile Tweaks
-   ---------------------------------------------------------------------- */
+/* 5. Mobile Tweaks */
 @media (max-width: 600px) {
-    main.hero {
-        padding: 20px;
-        width: 95%;
-    }
-    header h1 { font-size: 2rem; }
+    main.hero { padding: 25px; width: 92%; }
+    header h1 { font-size: 2.2rem; }
+    nav.nav-buttons { gap: 8px; }
 }

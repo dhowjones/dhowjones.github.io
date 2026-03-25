@@ -1,0 +1,146 @@
+/* =========================================================================
+   Aesthetic: Y2K Scrapbook / Desktop OS Hybrid
+   Vibe: Hand-drawn, Sticker-heavy, Cream & Cobalt
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Gaegu:wght@400;700&display=swap');
+
+/* 1. Global Setup */
+body {
+    background-color: #fcf8f0; /* Warm paper cream */
+    background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px); /* Subtle grid dots */
+    background-size: 20px 20px;
+    color: #1a1a1a;
+    font-family: 'Helvetica', sans-serif;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+/* 2. The Main "Folder" Container */
+main.hero {
+    background: white;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    border: 2px solid #1a1a1a;
+    border-radius: 0 20px 20px 20px; /* Rounded folder edge */
+    box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.05); /* Soft but hard-edged shadow */
+    position: relative;
+    padding-top: 0;
+}
+
+/* 3. Folder Tabs (Navigation) */
+nav.nav-buttons {
+    display: flex;
+    position: absolute;
+    top: -38px; /* Lift above the folder */
+    left: -2px;
+    gap: 4px;
+    padding: 0;
+}
+
+a.btn {
+    text-decoration: none;
+    font-family: 'Gaegu', cursive; /* Handwritten look from your images */
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 8px 20px;
+    background: #e0e0e0;
+    border: 2px solid #1a1a1a;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    color: #1a1a1a;
+    transition: 0.2s;
+}
+
+/* Tab Colors like the "Sophie" image */
+a.btn:nth-child(1) { background-color: #fdfd96; } /* Pale Yellow */
+a.btn:nth-child(2) { background-color: #c4def6; } /* Cobalt Light */
+a.btn:nth-child(3) { background-color: #b2f2bb; } /* Green */
+a.btn:nth-child(4) { background-color: #ffccf9; } /* Pink */
+
+a.btn:hover {
+    padding-top: 12px;
+    margin-top: -4px;
+    background: white;
+}
+
+/* 4. Typography & Headers */
+header {
+    background: #0047AB; /* Strict Cobalt header bar */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #1a1a1a;
+}
+
+header h1 {
+    font-family: 'VT323', monospace; /* Pixel font for the "About Me!" vibe */
+    font-size: 2.5rem;
+    margin: 0;
+    text-transform: lowercase;
+}
+
+header p.subtitle {
+    font-size: 0.8rem;
+    font-family: monospace;
+    background: white;
+    color: #1a1a1a;
+    padding: 2px 8px;
+    margin: 0;
+    border: 1px solid #1a1a1a;
+}
+
+/* 5. Bio Section (The Scrapbook Page) */
+section.bio {
+    padding: 40px;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    position: relative;
+}
+
+/* Add a "Sticker" effect to the text */
+section.bio p {
+    position: relative;
+    z-index: 2;
+}
+
+/* The "Link" Sticker style */
+section.bio a {
+    color: #0047AB;
+    background: #fff;
+    padding: 2px 5px;
+    border: 2px dashed #0047AB; /* Cut-out sticker line */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section.bio a:hover {
+    background: #0047AB;
+    color: white;
+}
+
+/* Decorative "Sparkle" symbols from your image */
+section.bio::after {
+    content: "✧";
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: #FF8C00; /* Orange accent */
+}
+
+/* 6. Mobile Tweaks */
+@media (max-width: 600px) {
+    nav.nav-buttons {
+        position: static;
+        flex-direction: column;
+        gap: 0;
+    }
+    a.btn {
+        border-radius: 0;
+        border-bottom: 2px solid #1a1a1a;
+    }
+}

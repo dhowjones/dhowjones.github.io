@@ -1,0 +1,156 @@
+/* =========================================================================
+   Portfolio Stylesheet: 90s Cobalt Aesthetic
+   Aesthetic: Black, White, Cobalt Blue. Strict 90s Web 1.0 Vibe.
+   ========================================================================= */
+
+/* 1. Global Page Structure (The 'Desktop')
+   ---------------------------------------------------------------------- */
+body {
+  /* Classic, textured default background for a 90s screen */
+  background-color: #c0c0c0; /* Standard Win95 light grey */
+  background-image: none; /* Keep it simple */
+  color: #000000; /* Strict Black text for readability */
+  font-family: 'Times New Roman', Times, serif; /* Default, serif 'academic' web font */
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Center the 'window' */
+  align-items: center;
+  min-height: 100vh;
+  cursor: default; /* Keep standard cursor */
+}
+
+/* Container for all content on a 90s page */
+main.hero {
+  /* Make the main area look like an unstyled window frame */
+  background-color: #ffffff; /* Page is white */
+  max-width: 780px; /* Fixed, predictable 90s width */
+  width: 90%;
+  padding: 30px;
+  margin: 20px auto;
+  border-top: 3px solid #f0f0f0; /* Light highlight edge */
+  border-left: 3px solid #f0f0f0;
+  border-right: 3px solid #666666; /* Hard shadow edge */
+  border-bottom: 3px solid #666666;
+  box-sizing: border-box;
+}
+
+/* 2. Typography & Text Sections (The 'Content')
+   ---------------------------------------------------------------------- */
+/* Make the subtitle slightly less prominent, like the old <p> spacing */
+header p.subtitle {
+  font-family: 'Courier New', Courier, monospace; /* Teletype/monospace for technical feel */
+  font-size: 14px;
+  color: #333333;
+  margin-top: 0;
+  margin-bottom: 10px;
+  letter-spacing: normal;
+  text-align: left; /* Keep it raw, left-aligned */
+}
+
+/* Main title is large, simple, and bold, like default h1 */
+header h1 {
+  font-family: 'Arial Black', Arial, sans-serif; /* Thick, bold 90s headline */
+  font-size: 32px;
+  font-weight: 900;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #000000;
+  border-bottom: 2px solid #000000; /* Simple text underline separator */
+  padding-bottom: 10px;
+}
+
+/* Biography section: Simple paragraphs, no fancy formatting */
+section.bio {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+section.bio p {
+  margin-bottom: 18px; /* Default browser paragraph spacing */
+}
+
+/* Keep the contact call-to-action simple */
+section.bio p.connect {
+  margin-top: 30px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* Links within text: Pure Cobalt Blue */
+a {
+  color: #0000ff; /* STrict Cobalt/Standard Blue #0000FF */
+  text-decoration: underline; /* Links must be underlined */
+  cursor: pointer;
+}
+
+a:hover {
+  color: #000080; /* Darker Navy on hover (optional, standard browser behavior) */
+  text-decoration: none; /* Standard browser toggle */
+}
+
+/* 3. Navigation Buttons (The 'Beveled Buttons')
+   ---------------------------------------------------------------------- */
+/* The container for the buttons */
+nav.nav-buttons {
+  display: flex;
+  justify-content: flex-start; /* Buttons align to the left in sequence */
+  gap: 10px; /* Space between buttons */
+  flex-wrap: wrap; /* Wrap on small screens */
+  margin-top: 30px;
+  border-top: 1px solid #000000; /* Basic separator bar */
+  padding-top: 20px;
+}
+
+/* General Button style, mimicking default browser/Win95 controls */
+a.btn {
+  display: inline-block;
+  font-family: 'Arial', sans-serif; /* Cleaner font for interface elements */
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none; /* No underlines on button labels */
+  color: #000000; /* Text is black */
+  background-color: #d4d0c8; /* Classic Win95 grey button base */
+  padding: 8px 16px;
+  border-top: 2px solid #ffffff; /* Light bevel highlight */
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040; /* Dark bevel shadow */
+  border-bottom: 2px solid #404040;
+  cursor: pointer;
+  transition: none; /* No smooth fades */
+  white-space: nowrap; /* Prevent wrapping inside buttons */
+}
+
+/* Hover effect: The standard behavior for a grey button */
+a.btn:hover {
+  color: #000000;
+  background-color: #e0e0e0; /* Slightly lighter grey on hover */
+  border-top: 2px solid #ffffff; /* Bevel shifts slightly */
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  text-decoration: none;
+}
+
+/* The standard focus/active state when clicked (Optional for completeness) */
+a.btn:active,
+a.btn:focus {
+  background-color: #b0b0b0; /* Pushed in look */
+  border-top: 2px solid #404040; /* Dark border moves to the top/left */
+  border-left: 2px solid #404040;
+  border-right: 2px solid #ffffff; /* Light border moves to the bottom/right */
+  border-bottom: 2px solid #ffffff;
+  outline: 1px dotted #000000; /* Standard dotted focus ring */
+}
+
+/* For specific accenting, which you requested: 
+   Use the links' strict cobalt color for emphasis where useful. */
+strong {
+  color: #0000ff; /* Accent strong text in cobalt */
+}
+
+/* =========================================================================
+   End 90s Stylesheet
+   ========================================================================= */

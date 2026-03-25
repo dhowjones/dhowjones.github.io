@@ -1,15 +1,16 @@
 /* =========================================================================
    Aesthetic: Technical Minimalist / Modern OS
-   Vibe: Coherent, Professional, Technical, Feminine-Sleek
+   Scheme: Cyber Lavender (Feminine-Sleek Technical)
+   Vibe: Coherent, Professional, Modern
    ========================================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* 1. Global Setup */
 body {
-    background-color: #ffffff; /* Clean white */
+    background-color: #e6e8f0; /* Cyber Lavender / Steel Blue-Grey */
     color: #1a1a1a;
-    font-family: 'Inter', sans-serif; /* Professional, sleek sans-serif */
+    font-family: 'Inter', sans-serif;
     padding: 60px 20px;
     margin: 0;
     display: flex;
@@ -23,8 +24,9 @@ main.hero {
     background: #ffffff;
     max-width: 850px;
     width: 100%;
-    border: 1px solid #1a1a1a; /* Thinner, more professional border */
-    box-shadow: 15px 15px 0px rgba(0, 71, 171, 0.05); /* Very subtle Cobalt tint shadow */
+    border: 1px solid #1a1a1a;
+    /* Pronounced shadow with a slight lavender-tinted depth */
+    box-shadow: 20px 20px 0px rgba(75, 0, 130, 0.08); 
     position: relative;
 }
 
@@ -34,21 +36,21 @@ nav.nav-buttons {
     position: absolute;
     top: -33px; 
     left: -1px;
-    gap: 0; /* Connected tabs for a unified look */
+    gap: 0;
 }
 
 a.btn {
     text-decoration: none;
-    font-family: 'JetBrains Mono', monospace; /* Technical font */
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     padding: 8px 24px;
-    background: #ffffff;
+    background: #ffffff; /* White tabs against the lavender background look very crisp */
     border: 1px solid #1a1a1a;
     color: #1a1a1a;
     transition: all 0.2s ease;
-    border-right: none; /* Merges the buttons */
+    border-right: none;
 }
 
 a.btn:last-child {
@@ -56,7 +58,7 @@ a.btn:last-child {
 }
 
 a.btn:hover {
-    background: #0047AB; /* Cobalt Highlight */
+    background: #0047AB; /* Cobalt Highlight remains the primary action color */
     color: #ffffff;
 }
 
@@ -75,12 +77,13 @@ header h1 {
     font-size: 2.2rem;
     margin: 0;
     letter-spacing: -0.03em;
+    color: #1a1a1a;
 }
 
 header p.subtitle {
     font-size: 0.7rem;
     font-family: 'JetBrains Mono', monospace;
-    color: #008f11; /* Technical "Online" Green */
+    color: #008f11; /* Keep the 'Online' status green for that technical feel */
     margin: 10px 0 0 0;
     display: flex;
     align-items: center;
@@ -108,7 +111,7 @@ section.bio p {
     margin-bottom: 24px;
 }
 
-/* Technical Link Style */
+/* Technical Link Style - Deepened for Cyber Lavender */
 section.bio a {
     color: #0047AB;
     text-decoration: none;
@@ -121,15 +124,15 @@ section.bio a:hover {
     background: rgba(0, 71, 171, 0.08);
 }
 
-/* 6. Technical Accents (The "Sparkle" replacement) */
+/* 6. Technical Accents */
 section.bio::after {
-    content: "[ v.2026.03 ]"; /* Technical versioning stamp */
+    content: "[ v.2026.03 ]";
     position: absolute;
     bottom: 20px;
     right: 20px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.65rem;
-    color: #999;
+    color: #99a2c2; /* Muted lavender-grey for the stamp */
 }
 
 /* 7. Mobile View */

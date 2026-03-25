@@ -122,16 +122,6 @@ section.bio a:hover {
     color: white;
 }
 
-/* Decorative "Sparkle" symbols from your image */
-section.bio::after {
-    content: "✧";
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    font-size: 2rem;
-    color: #FF8C00; /* Orange accent */
-}
-
 /* 6. Mobile Tweaks */
 @media (max-width: 600px) {
     nav.nav-buttons {

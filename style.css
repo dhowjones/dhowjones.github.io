@@ -1,156 +1,143 @@
 /* =========================================================================
-   Portfolio Stylesheet: 90s Cobalt Aesthetic
-   Aesthetic: Black, White, Cobalt Blue. Strict 90s Web 1.0 Vibe.
+   Portfolio Stylesheet: Y2K Pop-Minimalist (iMac G3 Era)
+   Aesthetic: Glossy, Translucent, Cobalt & Lime Accents
    ========================================================================= */
 
-/* 1. Global Page Structure (The 'Desktop')
+/* 1. Global Setup
    ---------------------------------------------------------------------- */
 body {
-  /* Classic, textured default background for a 90s screen */
-  background-color: #c0c0c0; /* Standard Win95 light grey */
-  background-image: none; /* Keep it simple */
-  color: #000000; /* Strict Black text for readability */
-  font-family: 'Times New Roman', Times, serif; /* Default, serif 'academic' web font */
-  font-size: 16px;
-  line-height: 1.4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center; /* Center the 'window' */
-  align-items: center;
-  min-height: 100vh;
-  cursor: default; /* Keep standard cursor */
+    background-color: #f0f4f8; /* Soft off-white */
+    /* Subtle radial gradient to mimic a backlit CRT or early LCD screen */
+    background-image: radial-gradient(circle at center, #ffffff 0%, #dbeafe 100%);
+    color: #1a1a1a;
+    font-family: "Lucida Grande", "Segoe UI", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-/* Container for all content on a 90s page */
+/* The 'Window' - Translucent Cobalt Acrylic */
 main.hero {
-  /* Make the main area look like an unstyled window frame */
-  background-color: #ffffff; /* Page is white */
-  max-width: 780px; /* Fixed, predictable 90s width */
-  width: 90%;
-  padding: 30px;
-  margin: 20px auto;
-  border-top: 3px solid #f0f0f0; /* Light highlight edge */
-  border-left: 3px solid #f0f0f0;
-  border-right: 3px solid #666666; /* Hard shadow edge */
-  border-bottom: 3px solid #666666;
-  box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.7); /* Frosted glass effect */
+    backdrop-filter: blur(10px); /* Modern way to get that 'Aero' blur */
+    max-width: 800px;
+    width: 90%;
+    padding: 40px;
+    border-radius: 30px; /* Extra rounded for that bubble look */
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 100, 0.1), /* Soft drop shadow */
+        inset 0 0 20px rgba(255, 255, 255, 0.5); /* Inner glow */
 }
 
-/* 2. Typography & Text Sections (The 'Content')
+/* 2. Header & Typography
    ---------------------------------------------------------------------- */
-/* Make the subtitle slightly less prominent, like the old <p> spacing */
-header p.subtitle {
-  font-family: 'Courier New', Courier, monospace; /* Teletype/monospace for technical feel */
-  font-size: 14px;
-  color: #333333;
-  margin-top: 0;
-  margin-bottom: 10px;
-  letter-spacing: normal;
-  text-align: left; /* Keep it raw, left-aligned */
+header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-/* Main title is large, simple, and bold, like default h1 */
 header h1 {
-  font-family: 'Arial Black', Arial, sans-serif; /* Thick, bold 90s headline */
-  font-size: 32px;
-  font-weight: 900;
-  margin-top: 0;
-  margin-bottom: 25px;
-  color: #000000;
-  border-bottom: 2px solid #000000; /* Simple text underline separator */
-  padding-bottom: 10px;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #0047AB; /* Cobalt Blue */
+    margin: 0;
+    letter-spacing: -1px;
+    /* Soft text shadow for a 'printed on glass' look */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Biography section: Simple paragraphs, no fancy formatting */
-section.bio {
-  text-align: left;
-  margin-bottom: 40px;
+header p.subtitle {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #32CD32; /* Lime Green accent */
+    font-weight: bold;
+    margin-top: 5px;
 }
 
-section.bio p {
-  margin-bottom: 18px; /* Default browser paragraph spacing */
-}
-
-/* Keep the contact call-to-action simple */
-section.bio p.connect {
-  margin-top: 30px;
-  font-style: italic;
-  font-weight: bold;
-}
-
-/* Links within text: Pure Cobalt Blue */
-a {
-  color: #0000ff; /* STrict Cobalt/Standard Blue #0000FF */
-  text-decoration: underline; /* Links must be underlined */
-  cursor: pointer;
-}
-
-a:hover {
-  color: #000080; /* Darker Navy on hover (optional, standard browser behavior) */
-  text-decoration: none; /* Standard browser toggle */
-}
-
-/* 3. Navigation Buttons (The 'Beveled Buttons')
+/* 3. Bio Content
    ---------------------------------------------------------------------- */
-/* The container for the buttons */
+section.bio {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+section.bio a {
+    color: #0047AB;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(0, 71, 171, 0.2);
+    transition: all 0.2s ease;
+}
+
+section.bio a:hover {
+    background: rgba(0, 71, 171, 0.1);
+    border-bottom-color: #0047AB;
+}
+
+/* 4. Glossy 'Pill' Navigation
+   ---------------------------------------------------------------------- */
 nav.nav-buttons {
-  display: flex;
-  justify-content: flex-start; /* Buttons align to the left in sequence */
-  gap: 10px; /* Space between buttons */
-  flex-wrap: wrap; /* Wrap on small screens */
-  margin-top: 30px;
-  border-top: 1px solid #000000; /* Basic separator bar */
-  padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+    flex-wrap: wrap;
 }
 
-/* General Button style, mimicking default browser/Win95 controls */
 a.btn {
-  display: inline-block;
-  font-family: 'Arial', sans-serif; /* Cleaner font for interface elements */
-  font-size: 14px;
-  font-weight: bold;
-  text-decoration: none; /* No underlines on button labels */
-  color: #000000; /* Text is black */
-  background-color: #d4d0c8; /* Classic Win95 grey button base */
-  padding: 8px 16px;
-  border-top: 2px solid #ffffff; /* Light bevel highlight */
-  border-left: 2px solid #ffffff;
-  border-right: 2px solid #404040; /* Dark bevel shadow */
-  border-bottom: 2px solid #404040;
-  cursor: pointer;
-  transition: none; /* No smooth fades */
-  white-space: nowrap; /* Prevent wrapping inside buttons */
+    position: relative;
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(180deg, #0052cc 0%, #003399 100%); /* Cobalt Gradient */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px; /* Perfect pill shape */
+    font-size: 0.9rem;
+    overflow: hidden; /* Clips the gloss effect */
+    box-shadow: 0 4px 15px rgba(0, 51, 153, 0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: transform 0.1s active;
 }
 
-/* Hover effect: The standard behavior for a grey button */
+/* The 'Gloss' Shine - mimicking early 2000s hardware buttons */
+a.btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+/* Different colors for specific icons/vibes as requested */
+a.btn:nth-child(2) { background: linear-gradient(180deg, #32CD32 0%, #228B22 100%); } /* Lime */
+a.btn:nth-child(3) { background: linear-gradient(180deg, #FF8C00 0%, #E67E00 100%); } /* Orange */
+
 a.btn:hover {
-  color: #000000;
-  background-color: #e0e0e0; /* Slightly lighter grey on hover */
-  border-top: 2px solid #ffffff; /* Bevel shifts slightly */
-  border-left: 2px solid #ffffff;
-  border-right: 2px solid #404040;
-  border-bottom: 2px solid #404040;
-  text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 51, 153, 0.4);
+    filter: brightness(1.1);
 }
 
-/* The standard focus/active state when clicked (Optional for completeness) */
-a.btn:active,
-a.btn:focus {
-  background-color: #b0b0b0; /* Pushed in look */
-  border-top: 2px solid #404040; /* Dark border moves to the top/left */
-  border-left: 2px solid #404040;
-  border-right: 2px solid #ffffff; /* Light border moves to the bottom/right */
-  border-bottom: 2px solid #ffffff;
-  outline: 1px dotted #000000; /* Standard dotted focus ring */
+a.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 51, 153, 0.2);
 }
 
-/* For specific accenting, which you requested: 
-   Use the links' strict cobalt color for emphasis where useful. */
-strong {
-  color: #0000ff; /* Accent strong text in cobalt */
+/* 5. Mobile Tweaks
+   ---------------------------------------------------------------------- */
+@media (max-width: 600px) {
+    main.hero {
+        padding: 20px;
+        width: 95%;
+    }
+    header h1 { font-size: 2rem; }
 }
-
-/* =========================================================================
-   End 90s Stylesheet
-   ========================================================================= */

@@ -37,87 +37,84 @@
     </main>
 
     <script>
-        let scene, camera, renderer, controls;
+    let scene, camera, renderer, controls;
 
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const container = document.getElementById('container-3d');
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+        scene.add(ambientLight);
+
+        // 1. Create a Mapping Object
+        // Adjust the keys (e.g., 'material_0') to match the names inside your model.mtl
+        const textureLoader = new THREE.TextureLoader();
+        const textureMap = {
+            'material_0': textureLoader.load('texgen_0.png'),
+            'material_1': textureLoader.load('texgen_1.png'),
+            'material_2': textureLoader.load('texgen_2.png'),
+            'material_3': textureLoader.load('texgen_3.png')
+        };
+
+        const mtlLoader = new THREE.MTLLoader();
+        mtlLoader.setPath('./'); 
+        
+        mtlLoader.load('model.mtl', function (materials) {
+            materials.preload();
             
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            const container = document.getElementById('container-3d');
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            container.appendChild(renderer.domElement);
-
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-            scene.add(ambientLight);
-
-            // 1. Manually prepare the texture array
-            const textureLoader = new THREE.TextureLoader();
-            const textureFiles = ['texgen_0.png', 'texgen_1.png', 'texgen_2.png', 'texgen_3.png'];
-            const textures = textureFiles.map(file => textureLoader.load(file));
-
-            const mtlLoader = new THREE.MTLLoader();
-            mtlLoader.setPath('./'); 
-            
-            mtlLoader.load('model.mtl', function (materials) {
-                materials.preload();
+            const objLoader = new THREE.OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.load('model.obj', function (object) {
                 
-                const objLoader = new THREE.OBJLoader();
-                objLoader.setMaterials(materials);
-                objLoader.load('model.obj', function (object) {
-                    
-                    // 2. Iterate through the model and apply textures in sequence
-                    let texCounter = 0;
-                    object.traverse(function (child) {
-                        if (child.isMesh) {
-                            // Apply the corresponding texture from our array
-                            if (textures[texCounter]) {
-                                child.material.map = textures[texCounter];
-                                child.material.color.set(0xffffff); // Ensure no tint
-                                child.material.needsUpdate = true;
-                                texCounter++;
-                            }
+                object.traverse(function (child) {
+                    if (child.isMesh) {
+                        // 2. Log material names to console so you can see the exact keys to use
+                        console.log("Found Material Name:", child.material.name);
+
+                        // 3. Force apply the textures based on the map
+                        // If your material name is 'material_0', it grabs 'texgen_0.png'
+                        if (textureMap[child.material.name]) {
+                            child.material.map = textureMap[child.material.name];
                         }
-                    });
-
-                    // Auto-center and Zoom
-                    const box = new THREE.Box3().setFromObject(object);
-                    const center = box.getCenter(new THREE.Vector3());
-                    const size = box.getSize(new THREE.Vector3());
-                    object.position.sub(center);
-                    
-                    const maxDim = Math.max(size.x, size.y, size.z);
-                    const fov = camera.fov * (Math.PI / 180);
-                    camera.position.z = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.8;
-                    camera.updateProjectionMatrix();
-                    
-                    scene.add(object);
+                        
+                        child.material.color.set(0xffffff); 
+                        child.material.needsUpdate = true;
+                    }
                 });
-            });
 
-            animate();
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        window.addEventListener('resize', () => {
-            const container = document.getElementById('container-3d');
-            if (container) {
-                camera.aspect = container.clientWidth / container.clientHeight;
+                // Auto-center and Zoom
+                const box = new THREE.Box3().setFromObject(object);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+                object.position.sub(center);
+                
+                const maxDim = Math.max(size.x, size.y, size.z);
+                camera.position.z = maxDim * 1.8;
                 camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
-            }
+                
+                scene.add(object);
+            });
         });
 
-        init();
-    </script>
+        animate();
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    init();
+</script>
 </body>
 </html>

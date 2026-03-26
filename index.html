@@ -21,8 +21,9 @@
         <section class="bio">
             <p>Welcome to my personal website! My name is Roshni Nayar and I am currently obtaining my MSc in Global Digital Humanities from the University of St Andrews. My research interests include digital public history, cultural heritage, digital humanities, memory studies, and generative artificial intelligence. </p>
 
-            <div id="container-3d" style="width: 100%; height: 400px; border: 1px solid #1a1a1a; background: #f4f5f9; margin-top: 20px; cursor: move;"></div>
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #999; margin-top: 10px; text-align: center;">
+            <div id="container-3d" style="width: 100%; height: 500px; margin-top: 10px; cursor: move; outline: none;"></div>
+            
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #999; margin-top: 5px; text-align: center;">
                 [ INTERACTIVE_ASSET: Click and drag to rotate ]
             </p>
         </section>
@@ -36,23 +37,30 @@
     </main>
 
     <script>
-        // Simple Three.js script to load your OBJ/MTL
         let scene, camera, renderer, controls;
 
         function init() {
             scene = new THREE.Scene();
+            
+            // Background is transparent to float over the page
             camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 5;
-
+            
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             const container = document.getElementById('container-3d');
             renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
             container.appendChild(renderer.domElement);
 
             controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.enableZoom = true;
             
-            const light = new THREE.AmbientLight(0xffffff, 1);
-            scene.add(light);
+            // Bright lighting for clarity
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            directionalLight.position.set(1, 1, 2);
+            scene.add(directionalLight);
 
             const mtlLoader = new THREE.MTLLoader();
             mtlLoader.load('model.mtl', function (materials) {
@@ -60,6 +68,23 @@
                 const objLoader = new THREE.OBJLoader();
                 objLoader.setMaterials(materials);
                 objLoader.load('model.obj', function (object) {
+                    
+                    // Center and Zoom logic
+                    const box = new THREE.Box3().setFromObject(object);
+                    const center = box.getCenter(new THREE.Vector3());
+                    const size = box.getSize(new THREE.Vector3());
+                    
+                    object.position.x += (object.position.x - center.x);
+                    object.position.y += (object.position.y - center.y);
+                    object.position.z += (object.position.z - center.z);
+                    
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const fov = camera.fov * (Math.PI / 180);
+                    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+                    
+                    camera.position.z = cameraZ * 1.5; // Adjusted multiplier for perfect zoom
+                    camera.updateProjectionMatrix();
+                    
                     scene.add(object);
                 });
             });
@@ -72,6 +97,13 @@
             controls.update();
             renderer.render(scene, camera);
         }
+
+        window.addEventListener('resize', () => {
+            const container = document.getElementById('container-3d');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
 
         init();
     </script>

@@ -9,6 +9,28 @@
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/MTLLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/OBJLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        /* NEW: Loading Overlay Styles */
+        #container-3d {
+            position: relative; /* Needed to anchor the loader inside */
+        }
+        #loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.0); /* Transparent to keep your background clean */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #999;
+            pointer-events: none; /* Prevents it from blocking mouse clicks */
+        }
+    </style>
 </head>
 <body>
 
@@ -18,7 +40,9 @@
             <h1>Roshni Nayar</h1>
         </header>
         <section class="bio">
-            <div id="container-3d" style="width: 100%; height: 500px; margin-top: 10px; cursor: move; outline: none;"></div>
+            <div id="container-3d" style="width: 100%; height: 500px; margin-top: 10px; cursor: move; outline: none;">
+                <div id="loading-overlay">Initializing Asset...</div>
+            </div>
             
             <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #999; margin-top: 5px; text-align: center; margin-bottom: 20px;">
                 [ INTERACTIVE_ASSET: Click and drag to rotate ]
@@ -101,6 +125,10 @@
                 camera.updateProjectionMatrix();
                 
                 scene.add(object);
+
+                // NEW: Hide the overlay when loading is complete
+                const overlay = document.getElementById('loading-overlay');
+                if (overlay) overlay.style.display = 'none';
             });
         });
 

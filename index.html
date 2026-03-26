@@ -55,14 +55,10 @@
             const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
             scene.add(ambientLight);
 
-            // FORCE LOAD THE TEXTURES
+            // 1. Manually prepare the texture array
             const textureLoader = new THREE.TextureLoader();
-            const textures = [
-                textureLoader.load('texgen_0.png'),
-                textureLoader.load('texgen_1.png'),
-                textureLoader.load('texgen_2.png'),
-                textureLoader.load('texgen_3.png')
-            ];
+            const textureFiles = ['texgen_0.png', 'texgen_1.png', 'texgen_2.png', 'texgen_3.png'];
+            const textures = textureFiles.map(file => textureLoader.load(file));
 
             const mtlLoader = new THREE.MTLLoader();
             mtlLoader.setPath('./'); 
@@ -74,26 +70,29 @@
                 objLoader.setMaterials(materials);
                 objLoader.load('model.obj', function (object) {
                     
-                    // Apply textures manually to every mesh part
-                    let texIdx = 0;
+                    // 2. Iterate through the model and apply textures in sequence
+                    let texCounter = 0;
                     object.traverse(function (child) {
                         if (child.isMesh) {
-                            if (textures[texIdx]) {
-                                child.material.map = textures[texIdx];
-                                child.material.color.set(0xffffff); // Kill the red error color
+                            // Apply the corresponding texture from our array
+                            if (textures[texCounter]) {
+                                child.material.map = textures[texCounter];
+                                child.material.color.set(0xffffff); // Ensure no tint
                                 child.material.needsUpdate = true;
-                                texIdx++;
+                                texCounter++;
                             }
                         }
                     });
 
+                    // Auto-center and Zoom
                     const box = new THREE.Box3().setFromObject(object);
                     const center = box.getCenter(new THREE.Vector3());
                     const size = box.getSize(new THREE.Vector3());
                     object.position.sub(center);
                     
                     const maxDim = Math.max(size.x, size.y, size.z);
-                    camera.position.z = Math.abs(maxDim / 2 / Math.tan(camera.fov * Math.PI / 360)) * 1.8;
+                    const fov = camera.fov * (Math.PI / 180);
+                    camera.position.z = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.8;
                     camera.updateProjectionMatrix();
                     
                     scene.add(object);
@@ -108,6 +107,15 @@
             controls.update();
             renderer.render(scene, camera);
         }
+
+        window.addEventListener('resize', () => {
+            const container = document.getElementById('container-3d');
+            if (container) {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            }
+        });
 
         init();
     </script>

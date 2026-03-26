@@ -55,15 +55,22 @@
         const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
         scene.add(ambientLight);
 
-        // 1. Create a Mapping Object
-        // Adjust the keys (e.g., 'material_0') to match the names inside your model.mtl
+        // --- VIBRANCY FIX: Applied within Texture Loader ---
         const textureLoader = new THREE.TextureLoader();
-        const textureMap = {
-            'material_0': textureLoader.load('texgen_0.png'),
-            'material_1': textureLoader.load('texgen_1.png'),
-            'material_2': textureLoader.load('texgen_2.png'),
-            'material_3': textureLoader.load('texgen_3.png')
+        const loadVibrantTexture = (file) => {
+            const tex = textureLoader.load(file);
+            // Forces the standard richer color space
+            tex.encoding = THREE.sRGBEncoding; 
+            return tex;
         };
+
+        const textureMap = {
+            'material_0': loadVibrantTexture('texgen_0.png'),
+            'material_1': loadVibrantTexture('texgen_1.png'),
+            'material_2': loadVibrantTexture('texgen_2.png'),
+            'material_3': loadVibrantTexture('texgen_3.png')
+        };
+        // --------------------------------------------------
 
         const mtlLoader = new THREE.MTLLoader();
         mtlLoader.setPath('./'); 
@@ -77,11 +84,8 @@
                 
                 object.traverse(function (child) {
                     if (child.isMesh) {
-                        // 2. Log material names to console so you can see the exact keys to use
                         console.log("Found Material Name:", child.material.name);
 
-                        // 3. Force apply the textures based on the map
-                        // If your material name is 'material_0', it grabs 'texgen_0.png'
                         if (textureMap[child.material.name]) {
                             child.material.map = textureMap[child.material.name];
                         }
@@ -91,7 +95,6 @@
                     }
                 });
 
-                // Auto-center and Zoom
                 const box = new THREE.Box3().setFromObject(object);
                 const center = box.getCenter(new THREE.Vector3());
                 const size = box.getSize(new THREE.Vector3());

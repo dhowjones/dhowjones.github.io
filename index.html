@@ -41,7 +41,6 @@
 
         function init() {
             scene = new THREE.Scene();
-            
             camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
             
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -53,42 +52,48 @@
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true;
             
-            // Standard lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
             scene.add(ambientLight);
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-            directionalLight.position.set(1, 1, 2);
-            scene.add(directionalLight);
+
+            // FORCE LOAD THE TEXTURES
+            const textureLoader = new THREE.TextureLoader();
+            const textures = [
+                textureLoader.load('texgen_0.png'),
+                textureLoader.load('texgen_1.png'),
+                textureLoader.load('texgen_2.png'),
+                textureLoader.load('texgen_3.png')
+            ];
 
             const mtlLoader = new THREE.MTLLoader();
-            // FIXED: Set the path to the current directory to find .png files
             mtlLoader.setPath('./'); 
             
             mtlLoader.load('model.mtl', function (materials) {
                 materials.preload();
                 
-                // FIXED: Ensure materials don't default to a red tint
-                Object.values(materials.materials).forEach(mat => {
-                    mat.color.set(0xffffff); // Force white base color so textures show accurately
-                });
-
                 const objLoader = new THREE.OBJLoader();
                 objLoader.setMaterials(materials);
                 objLoader.load('model.obj', function (object) {
                     
+                    // Apply textures manually to every mesh part
+                    let texIdx = 0;
+                    object.traverse(function (child) {
+                        if (child.isMesh) {
+                            if (textures[texIdx]) {
+                                child.material.map = textures[texIdx];
+                                child.material.color.set(0xffffff); // Kill the red error color
+                                child.material.needsUpdate = true;
+                                texIdx++;
+                            }
+                        }
+                    });
+
                     const box = new THREE.Box3().setFromObject(object);
                     const center = box.getCenter(new THREE.Vector3());
                     const size = box.getSize(new THREE.Vector3());
-                    
-                    object.position.x += (object.position.x - center.x);
-                    object.position.y += (object.position.y - center.y);
-                    object.position.z += (object.position.z - center.z);
+                    object.position.sub(center);
                     
                     const maxDim = Math.max(size.x, size.y, size.z);
-                    const fov = camera.fov * (Math.PI / 180);
-                    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-                    
-                    camera.position.z = cameraZ * 1.5;
+                    camera.position.z = Math.abs(maxDim / 2 / Math.tan(camera.fov * Math.PI / 360)) * 1.8;
                     camera.updateProjectionMatrix();
                     
                     scene.add(object);
@@ -104,17 +109,7 @@
             renderer.render(scene, camera);
         }
 
-        window.addEventListener('resize', () => {
-            const container = document.getElementById('container-3d');
-            if (container) {
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
-            }
-        });
-
         init();
     </script>
-
 </body>
 </html>

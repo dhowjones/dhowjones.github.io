@@ -81,8 +81,8 @@
         controls.enableDamping = true;
         
         // --- LIGHTING FIX: Reduced from 1.5 to 1.1 for less "glare" ---
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
-        scene.add(ambientLight);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7); 
+scene.add(ambientLight);
 
         const textureLoader = new THREE.TextureLoader();
         const loadVibrantTexture = (file) => {

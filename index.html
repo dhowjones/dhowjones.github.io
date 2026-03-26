@@ -67,6 +67,11 @@
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         
         renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        // --- CONTRAST FIX: Softens the lighting output ---
+        renderer.toneMapping = THREE.LinearToneMapping; 
+        renderer.toneMappingExposure = 0.9; // Lowering this reduces harsh highlights
+        
         const container = document.getElementById('container-3d');
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
@@ -75,7 +80,8 @@
         controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+        // --- LIGHTING FIX: Reduced from 1.5 to 1.1 for less "glare" ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
         scene.add(ambientLight);
 
         const textureLoader = new THREE.TextureLoader();
@@ -84,6 +90,8 @@
             tex.encoding = THREE.sRGBEncoding; 
             return tex;
         };
+        
+        // ... rest of your code stays exactly the same ...
 
         const textureMap = {
             'material_0': loadVibrantTexture('texgen_0.png'),

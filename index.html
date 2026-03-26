@@ -19,13 +19,13 @@
         </header>
 
         <section class="bio">
-            <p>Welcome to my personal website! My name is Roshni Nayar and I am currently obtaining my MSc in Global Digital Humanities from the University of St Andrews. My research interests include digital public history, cultural heritage, digital humanities, memory studies, and generative artificial intelligence. </p>
-
             <div id="container-3d" style="width: 100%; height: 500px; margin-top: 10px; cursor: move; outline: none;"></div>
             
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #999; margin-top: 5px; text-align: center;">
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #999; margin-top: 5px; text-align: center; margin-bottom: 20px;">
                 [ INTERACTIVE_ASSET: Click and drag to rotate ]
             </p>
+
+            <p>Welcome to my personal website! My name is Roshni Nayar and I am currently obtaining my MSc in Global Digital Humanities from the University of St Andrews. My research interests include digital public history, cultural heritage, digital humanities, memory studies, and generative artificial intelligence. </p>
         </section>
 
         <nav class="nav-buttons">
@@ -55,11 +55,9 @@
         const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
         scene.add(ambientLight);
 
-        // --- VIBRANCY FIX: Applied within Texture Loader ---
         const textureLoader = new THREE.TextureLoader();
         const loadVibrantTexture = (file) => {
             const tex = textureLoader.load(file);
-            // Forces the standard richer color space
             tex.encoding = THREE.sRGBEncoding; 
             return tex;
         };
@@ -70,7 +68,6 @@
             'material_2': loadVibrantTexture('texgen_2.png'),
             'material_3': loadVibrantTexture('texgen_3.png')
         };
-        // --------------------------------------------------
 
         const mtlLoader = new THREE.MTLLoader();
         mtlLoader.setPath('./'); 

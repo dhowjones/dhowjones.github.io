@@ -44,10 +44,6 @@
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         
         renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        
-        // --- VIBRANCY FIX 1: Set Output Encoding ---
-        renderer.outputEncoding = THREE.sRGBEncoding; 
-        
         const container = document.getElementById('container-3d');
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
@@ -56,24 +52,18 @@
         controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         
-        // --- VIBRANCY FIX 2: Dynamic Lighting ---
-        // Soft overall light
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7); 
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
         scene.add(ambientLight);
 
-        // Stronger light from an angle to create "pop"
-        const sunLight = new THREE.DirectionalLight(0xffffff, 1.0);
-        sunLight.position.set(5, 5, 5);
-        scene.add(sunLight);
-
+        // 1. Create a Mapping Object
+        // Adjust the keys (e.g., 'material_0') to match the names inside your model.mtl
         const textureLoader = new THREE.TextureLoader();
-        const textureFiles = ['texgen_0.png', 'texgen_1.png', 'texgen_2.png', 'texgen_3.png'];
-        const textures = textureFiles.map(file => {
-            const tex = textureLoader.load(file);
-            // --- VIBRANCY FIX 3: Set Texture Encoding ---
-            tex.encoding = THREE.sRGBEncoding;
-            return tex;
-        });
+        const textureMap = {
+            'material_0': textureLoader.load('texgen_0.png'),
+            'material_1': textureLoader.load('texgen_1.png'),
+            'material_2': textureLoader.load('texgen_2.png'),
+            'material_3': textureLoader.load('texgen_3.png')
+        };
 
         const mtlLoader = new THREE.MTLLoader();
         mtlLoader.setPath('./'); 
@@ -85,20 +75,23 @@
             objLoader.setMaterials(materials);
             objLoader.load('model.obj', function (object) {
                 
-                let texCounter = 0;
                 object.traverse(function (child) {
                     if (child.isMesh) {
-                        if (textures[texCounter]) {
-                            child.material.map = textures[texCounter];
-                            child.material.color.set(0xffffff);
-                            // Increase shininess if the material supports it
-                            if (child.material.specular) child.material.specular.set(0x111111);
-                            child.material.needsUpdate = true;
-                            texCounter++;
+                        // 2. Log material names to console so you can see the exact keys to use
+                        console.log("Found Material Name:", child.material.name);
+
+                        // 3. Force apply the textures based on the map
+                        // If your material name is 'material_0', it grabs 'texgen_0.png'
+                        if (textureMap[child.material.name]) {
+                            child.material.map = textureMap[child.material.name];
                         }
+                        
+                        child.material.color.set(0xffffff); 
+                        child.material.needsUpdate = true;
                     }
                 });
 
+                // Auto-center and Zoom
                 const box = new THREE.Box3().setFromObject(object);
                 const center = box.getCenter(new THREE.Vector3());
                 const size = box.getSize(new THREE.Vector3());

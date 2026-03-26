@@ -1,7 +1,7 @@
 newmtl material_1
-    map_Kd texgen_0.png
+    map_Kd texgen_1.png
     Ks 0
-    map_ao 1
+    map_ao texgen_2.png
     subsurface 0
     metallic 0
     specularTint 0

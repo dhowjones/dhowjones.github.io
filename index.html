@@ -52,7 +52,7 @@
         controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
         scene.add(ambientLight);
 
         // --- VIBRANCY FIX: Applied within Texture Loader ---

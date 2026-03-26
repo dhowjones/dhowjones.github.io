@@ -42,7 +42,6 @@
         function init() {
             scene = new THREE.Scene();
             
-            // Background is transparent to float over the page
             camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
             
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -53,23 +52,30 @@
 
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true;
-            controls.enableZoom = true;
             
-            // Bright lighting for clarity
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            // Standard lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1);
             scene.add(ambientLight);
             const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
             directionalLight.position.set(1, 1, 2);
             scene.add(directionalLight);
 
             const mtlLoader = new THREE.MTLLoader();
+            // FIXED: Set the path to the current directory to find .png files
+            mtlLoader.setPath('./'); 
+            
             mtlLoader.load('model.mtl', function (materials) {
                 materials.preload();
+                
+                // FIXED: Ensure materials don't default to a red tint
+                Object.values(materials.materials).forEach(mat => {
+                    mat.color.set(0xffffff); // Force white base color so textures show accurately
+                });
+
                 const objLoader = new THREE.OBJLoader();
                 objLoader.setMaterials(materials);
                 objLoader.load('model.obj', function (object) {
                     
-                    // Center and Zoom logic
                     const box = new THREE.Box3().setFromObject(object);
                     const center = box.getCenter(new THREE.Vector3());
                     const size = box.getSize(new THREE.Vector3());
@@ -82,7 +88,7 @@
                     const fov = camera.fov * (Math.PI / 180);
                     let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
                     
-                    camera.position.z = cameraZ * 1.5; // Adjusted multiplier for perfect zoom
+                    camera.position.z = cameraZ * 1.5;
                     camera.updateProjectionMatrix();
                     
                     scene.add(object);
@@ -100,9 +106,11 @@
 
         window.addEventListener('resize', () => {
             const container = document.getElementById('container-3d');
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
+            if (container) {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            }
         });
 
         init();

@@ -12,7 +12,7 @@
     <style>
         /* NEW: Loading Overlay Styles */
         #container-3d {
-            position: relative; /* Needed to anchor the loader inside */
+            position: relative; /* Needed to anchor the loader and info tag */
         }
         #loading-overlay {
             position: absolute;
@@ -20,7 +20,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.0); /* Transparent to keep your background clean */
+            background: rgba(255, 255, 255, 0.0);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,7 +28,31 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             color: #999;
-            pointer-events: none; /* Prevents it from blocking mouse clicks */
+            pointer-events: none;
+        }
+
+        /* NEW: Hover Info Tag Styles */
+        #asset-info-tag {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-right: 2px solid #ccddee; /* Subtle accent line */
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #666;
+            text-align: right;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 15;
+            line-height: 1.4;
+        }
+
+        /* Trigger visibility on container hover */
+        #container-3d:hover #asset-info-tag {
+            opacity: 1;
         }
     </style>
 </head>
@@ -42,6 +66,12 @@
         <section class="bio">
             <div id="container-3d" style="width: 100%; height: 500px; margin-top: 10px; cursor: move; outline: none;">
                 <div id="loading-overlay">Loading...</div>
+                
+                <div id="asset-info-tag">
+                    <strong>Frankie – Morning Coffee</strong><br>
+                    Lil Peach Riot: Sleep Over Series<br>
+                    Photogrammetry by Roshni Nayar
+                </div>
             </div>
             
             <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #999; margin-top: 5px; text-align: center; margin-bottom: 20px;">
@@ -70,7 +100,7 @@
         
         // --- CONTRAST FIX: Softens the lighting output ---
         renderer.toneMapping = THREE.LinearToneMapping; 
-        renderer.toneMappingExposure = 1.7; // Lowering this reduces harsh highlights
+        renderer.toneMappingExposure = 1.7; 
         
         const container = document.getElementById('container-3d');
         renderer.setSize(container.clientWidth, container.clientHeight);
@@ -80,9 +110,8 @@
         controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         
-        // --- LIGHTING FIX: Reduced from 1.5 to 1.1 for less "glare" ---
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.7); 
-scene.add(ambientLight);
+        scene.add(ambientLight);
 
         const textureLoader = new THREE.TextureLoader();
         const loadVibrantTexture = (file) => {
@@ -90,8 +119,6 @@ scene.add(ambientLight);
             tex.encoding = THREE.sRGBEncoding; 
             return tex;
         };
-        
-        // ... rest of your code stays exactly the same ...
 
         const textureMap = {
             'material_0': loadVibrantTexture('texgen_0.png'),
@@ -134,7 +161,6 @@ scene.add(ambientLight);
                 
                 scene.add(object);
 
-                // NEW: Hide the overlay when loading is complete
                 const overlay = document.getElementById('loading-overlay');
                 if (overlay) overlay.style.display = 'none';
             });

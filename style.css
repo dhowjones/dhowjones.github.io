@@ -51,20 +51,23 @@ nav.nav-buttons {
     padding: 14px 28px;
     text-decoration: none;
     border: 1px solid #1a1a1a;
-    transition: all 0.1s ease-in-out; /* Slightly faster for a snappy feel */
+    transition: all 0.1s ease-in-out; 
     box-shadow: 4px 4px 0px #1a1a1a; 
     font-weight: 500;
-    position: relative; /* Keeps it stable */
+    /* This ensures the button doesn't move its own hit-box */
+    position: relative; 
+    top: 0;
+    left: 0;
 }
 
 .launch-btn:hover {
     background-color: #1a1a1a;
     color: #ffffff !important;
-    /* We change the shadow to look like it's being pressed down */
+    /* We shrink the shadow to make it look "pushed" */
     box-shadow: 1px 1px 0px #1a1a1a; 
-    /* Instead of translate, we use top/left to move it slightly without breaking the hover zone */
-    top: 2px;
-    left: 2px;
+    /* We move the button down-right by the same amount the shadow shrank */
+    top: 3px;
+    left: 3px;
 }
 
 a.btn {

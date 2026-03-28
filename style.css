@@ -42,7 +42,7 @@ nav.nav-buttons {
 /* Launch Button for Borderline Poetry */
 .launch-btn {
     display: inline-block;
-    background-color: #0047AB; /* Your signature Cobalt */
+    background-color: #0047AB; 
     color: #ffffff !important;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.85rem;
@@ -51,16 +51,20 @@ nav.nav-buttons {
     padding: 14px 28px;
     text-decoration: none;
     border: 1px solid #1a1a1a;
-    transition: all 0.2s ease;
-    box-shadow: 4px 4px 0px #1a1a1a; /* Hard tech shadow */
+    transition: all 0.1s ease-in-out; /* Slightly faster for a snappy feel */
+    box-shadow: 4px 4px 0px #1a1a1a; 
     font-weight: 500;
+    position: relative; /* Keeps it stable */
 }
 
 .launch-btn:hover {
     background-color: #1a1a1a;
     color: #ffffff !important;
-    box-shadow: 0px 0px 0px #1a1a1a; /* "Pressed" effect */
-    transform: translate(2px, 2px);
+    /* We change the shadow to look like it's being pressed down */
+    box-shadow: 1px 1px 0px #1a1a1a; 
+    /* Instead of translate, we use top/left to move it slightly without breaking the hover zone */
+    top: 2px;
+    left: 2px;
 }
 
 a.btn {

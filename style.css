@@ -136,28 +136,19 @@ section.bio::after {
 }
 
 /* 7. Mobile View */
-/* 7. Mobile View */
+
 @media (max-width: 600px) {
     nav.nav-buttons {
-        /* Changed from relative to keep them at the very top of the window */
-        position: static; 
+        position: relative;
+        top: 0;
+        left: 0;
         flex-direction: column;
-        width: 100%;
-        margin-bottom: 0;
     }
-    
     a.btn {
         border-right: 1px solid #1a1a1a;
         border-bottom: none;
-        text-align: center; /* Better for mobile taps */
     }
-    
     a.btn:last-child {
         border-bottom: 1px solid #1a1a1a;
-    }
-
-    /* Adds a bit of padding to the top of the window container now that tabs are inside */
-    header {
-        padding: 20px;
     }
 }

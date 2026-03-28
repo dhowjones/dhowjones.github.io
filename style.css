@@ -135,6 +135,21 @@ section.bio::after {
     color: #99a2c2; /* Muted lavender-grey for the stamp */
 }
 
+/* New Flex Logic for Desktop */
+.bio-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.bio-image {
+    flex: 0 0 250px;
+}
+
+.bio-text {
+    flex: 1;
+}
 /* 7. Mobile View */
 /* 7. Mobile View */
 @media (max-width: 600px) {
@@ -160,4 +175,21 @@ section.bio::after {
     header {
         padding: 20px;
     }
+
+    .bio-container {
+        flex-direction: column; /* This stacks the photo and text */
+        gap: 20px;
+    }
+
+    .bio-image {
+        flex: 0 0 auto;
+        width: 100%; /* Makes photo full width on mobile */
+        max-width: 300px; /* Keeps it from getting too giant */
+        margin: 0 auto; /* Centers the photo */
+    }
+
+    section.bio {
+        padding: 20px; /* Slightly less padding so text doesn't feel cramped */
+    }
+}
 }

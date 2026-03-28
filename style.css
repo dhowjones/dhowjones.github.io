@@ -39,7 +39,14 @@ nav.nav-buttons {
     gap: 0;
 }
 
-/* Launch Button for Borderline Poetry */
+/* 1. The Wrapper stays perfectly still, acting as a solid anchor */
+.launch-wrapper {
+    display: inline-block;
+    padding: 0 4px 4px 0; /* Creates space for the shadow movement */
+    cursor: pointer;
+}
+
+/* 2. The Button is the visual element that moves */
 .launch-btn {
     display: inline-block;
     background-color: #0047AB; 
@@ -51,23 +58,21 @@ nav.nav-buttons {
     padding: 14px 28px;
     text-decoration: none;
     border: 1px solid #1a1a1a;
-    transition: all 0.1s ease-in-out; 
+    transition: all 0.1s ease; 
     box-shadow: 4px 4px 0px #1a1a1a; 
     font-weight: 500;
-    /* This ensures the button doesn't move its own hit-box */
-    position: relative; 
+    position: relative;
     top: 0;
     left: 0;
 }
 
-.launch-btn:hover {
+/* 3. Trigger the animation when the WRAPPER is hovered */
+.launch-wrapper:hover .launch-btn {
     background-color: #1a1a1a;
     color: #ffffff !important;
-    /* We shrink the shadow to make it look "pushed" */
-    box-shadow: 1px 1px 0px #1a1a1a; 
-    /* We move the button down-right by the same amount the shadow shrank */
-    top: 3px;
-    left: 3px;
+    box-shadow: 0px 0px 0px #1a1a1a; /* Shadow disappears */
+    top: 4px;   /* Button moves exactly the width of the shadow */
+    left: 4px;
 }
 
 a.btn {

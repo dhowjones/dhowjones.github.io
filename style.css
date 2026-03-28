@@ -230,7 +230,7 @@ section.bio::after {
     }
 
     .bio-text p {
-        font-size: 0.8rem;  /* Optimized for mobile reading */
+        font-size: 0.85rem;  /* Optimized for mobile reading */
         line-height: 1.5;    /* Tighter line spacing */
         margin-bottom: 16px; /* Reduced paragraph gaps */
     }

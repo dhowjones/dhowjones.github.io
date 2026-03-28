@@ -153,8 +153,8 @@ section.bio::after {
 /* 7. Mobile View */
 /* 7. Mobile View */
 @media (max-width: 600px) {
+    /* 1. Navigation: Stacks tabs vertically at the top */
     nav.nav-buttons {
-        /* Changed from relative to keep them at the very top of the window */
         position: static; 
         flex-direction: column;
         width: 100%;
@@ -164,32 +164,44 @@ section.bio::after {
     a.btn {
         border-right: 1px solid #1a1a1a;
         border-bottom: none;
-        text-align: center; /* Better for mobile taps */
+        text-align: center;
     }
     
     a.btn:last-child {
         border-bottom: 1px solid #1a1a1a;
     }
 
-    /* Adds a bit of padding to the top of the window container now that tabs are inside */
+    /* 2. Header: Tighter spacing to save scroll depth */
     header {
         padding: 20px;
     }
 
+    header h1 {
+        font-size: 1.8rem; /* Smaller heading for mobile screens */
+    }
+
+    /* 3. Bio Layout: Stacks image over text */
     .bio-container {
-        flex-direction: column; /* This stacks the photo and text */
+        flex-direction: column;
         gap: 20px;
     }
 
     .bio-image {
         flex: 0 0 auto;
-        width: 100%; /* Makes photo full width on mobile */
-        max-width: 300px; /* Keeps it from getting too giant */
-        margin: 0 auto; /* Centers the photo */
+        width: 100%;
+        max-width: 200px; /* Reduced from 300px for a more compact look */
+        margin: 0 auto 10px auto; /* Centers the photo and adds bottom gap */
     }
 
+    /* 4. Bio Text: Higher information density */
     section.bio {
-        padding: 20px; /* Slightly less padding so text doesn't feel cramped */
+        padding: 25px 20px; /* Tighter vertical padding */
+    }
+
+    .bio-text p {
+        font-size: 0.95rem;  /* Optimized for mobile reading */
+        line-height: 1.5;    /* Tighter line spacing */
+        margin-bottom: 16px; /* Reduced paragraph gaps */
     }
 }
 }
